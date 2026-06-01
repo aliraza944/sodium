@@ -1,65 +1,53 @@
-/*
- * styles.css — YouTube Shorts Hider
- *
- * All rules are scoped under a class on <html> so a single classList toggle
- * controls everything. The browser's CSS engine applies these rules to both
- * existing and dynamically injected elements automatically.
- *
- * Selectors use stable ytd-* custom element tag names (YouTube's Web Components)
- * and href-based :has() selectors — far more durable than obfuscated class names.
- * :has() requires Chrome 105+, which is safe for any Manifest V3 extension.
- */
-
-
-/* =====================================================================
-   SHORTS HIDING
-   Active when content.js adds class "ysh-active" to <html>
-   ===================================================================== */
-
-/* --- Homepage: Shorts shelf (both variants YouTube uses) --- */
 .ysh-active ytd-rich-shelf-renderer[is-shorts],
 .ysh-active ytd-reel-shelf-renderer {
   display: none !important;
 }
 
-/* --- Sidebar navigation: "Shorts" entry (expanded sidebar) --- */
 .ysh-active ytd-guide-entry-renderer:has(a[title="Shorts"]) {
   display: none !important;
 }
 
-/* --- Sidebar navigation: "Shorts" entry (collapsed / mini sidebar) --- */
 .ysh-active ytd-mini-guide-entry-renderer:has(a[href="/shorts"]) {
   display: none !important;
 }
 
-/* --- Watch page: Shorts in the "Up Next" / recommendations panel --- */
 .ysh-active ytd-compact-video-renderer:has(a[href*="/shorts/"]) {
   display: none !important;
 }
 
-/* --- Homepage & Subscriptions: individual Shorts video cards --- */
 .ysh-active ytd-rich-item-renderer:has(a[href*="/shorts/"]) {
   display: none !important;
 }
 
-/* --- Search results: Shorts video rows --- */
 .ysh-active ytd-video-renderer:has(a[href*="/shorts/"]) {
   display: none !important;
 }
 
-/* --- Filter/chips bar: "Shorts" chip in search and homepage --- */
 .ysh-active yt-chip-cloud-chip-renderer:has(a[href*="shorts"]) {
   display: none !important;
 }
 
-/* --- Shorts tab on channel pages --- */
 .ysh-active tp-yt-paper-tab:has(a[href*="/shorts"]) {
   display: none !important;
 }
 
+.ysf-active ytd-browse:not([page-subtype="search"]) ytd-rich-grid-renderer,
+.ysf-active ytd-browse:not([page-subtype="search"]) ytd-rich-shelf-renderer,
+.ysf-active ytd-browse:not([page-subtype="search"]) ytd-shelf-renderer {
+  display: none !important;
+}
 
-/* =====================================================================
-   FUTURE FEATURES — add new scoped sections here
-   Example:
-   .ysh-comments-hidden #comments { display: none !important; }
-   ===================================================================== */
+.ysf-active #secondary,
+.ysf-active ytd-watch-next-secondary-results-renderer {
+  display: none !important;
+}
+
+.ysf-active .ytp-ce-element,
+.ysf-active .ytp-autonav-endscreen-upnext-container {
+  display: none !important;
+}
+
+.ysf-active ytd-browse[page-subtype="trending"] ytd-expanded-shelf-contents-renderer,
+.ysf-active ytd-browse[page-subtype="trending"] ytd-item-section-renderer {
+  display: none !important;
+}

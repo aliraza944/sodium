@@ -19,7 +19,7 @@
         color: #f1f1f1;
       }
 
-      /* Header */
+      /* ── Header ─────────────────────────────────────── */
       .header {
         display: flex;
         align-items: center;
@@ -54,7 +54,7 @@
         margin-top: 1px;
       }
 
-      /* Toggle row */
+      /* ── Shorts toggle row ───────────────────────────── */
       .toggle-row {
         display: flex;
         align-items: center;
@@ -136,7 +136,155 @@
         outline-offset: 2px;
       }
 
-      /* Footer */
+      /* ── Focus section ───────────────────────────────── */
+      .focus-section {
+        padding: 14px 16px;
+        border-top: 1px solid #272727;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 3px;
+      }
+
+      .section-label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #f1f1f1;
+      }
+
+      .focus-badge {
+        font-size: 9px;
+        font-weight: 700;
+        color: #4caf50;
+        background: #1a3a1a;
+        border: 1px solid #4caf50;
+        border-radius: 4px;
+        padding: 1px 5px;
+        letter-spacing: 0.5px;
+      }
+
+      .section-sublabel {
+        font-size: 11px;
+        color: #aaa;
+        margin-bottom: 12px;
+      }
+
+      /* Duration preset buttons */
+      .duration-btns {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 10px;
+      }
+
+      .duration-btn {
+        flex: 1;
+        padding: 6px 0;
+        background: #1e1e1e;
+        border: 1px solid #3a3a3a;
+        border-radius: 6px;
+        color: #aaa;
+        font-size: 12px;
+        cursor: pointer;
+        transition:
+          background 0.15s ease,
+          border-color 0.15s ease,
+          color 0.15s ease;
+      }
+
+      .duration-btn:hover {
+        border-color: #555;
+        color: #f1f1f1;
+      }
+
+      .duration-btn.selected {
+        background: #1a3a1a;
+        border-color: #4caf50;
+        color: #4caf50;
+      }
+
+      /* Custom input row */
+      .custom-input-row {
+        display: none;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      .custom-input-row label {
+        font-size: 12px;
+        color: #aaa;
+        white-space: nowrap;
+      }
+
+      .custom-input-row input[type="number"] {
+        width: 64px;
+        padding: 5px 8px;
+        background: #1e1e1e;
+        border: 1px solid #3a3a3a;
+        border-radius: 6px;
+        color: #f1f1f1;
+        font-size: 12px;
+        outline: none;
+      }
+
+      .custom-input-row input[type="number"]:focus {
+        border-color: #4caf50;
+      }
+
+      /* Start / Stop buttons */
+      .focus-btn {
+        width: 100%;
+        padding: 9px;
+        border: none;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        letter-spacing: 0.3px;
+        transition: opacity 0.15s ease;
+      }
+
+      .focus-btn:hover {
+        opacity: 0.88;
+      }
+
+      .focus-btn-start {
+        background: #4caf50;
+        color: #0f0f0f;
+      }
+
+      .focus-btn-stop {
+        background: #1e1e1e;
+        border: 1px solid #c0392b;
+        color: #e74c3c;
+      }
+
+      /* Active / countdown view */
+      .focus-active-view {
+        text-align: center;
+        padding: 4px 0 10px;
+      }
+
+      .focus-countdown {
+        font-size: 38px;
+        font-weight: 700;
+        color: #4caf50;
+        letter-spacing: 3px;
+        font-variant-numeric: tabular-nums;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      .focus-remaining-label {
+        font-size: 11px;
+        color: #aaa;
+        margin-bottom: 14px;
+      }
+
+      /* ── Footer ──────────────────────────────────────── */
       .footer {
         padding: 10px 16px 14px;
         border-top: 1px solid #272727;
@@ -147,6 +295,8 @@
     </style>
   </head>
   <body>
+
+    <!-- Header -->
     <div class="header">
       <div class="header-icon">S</div>
       <div>
@@ -155,6 +305,7 @@
       </div>
     </div>
 
+    <!-- Shorts toggle -->
     <div class="toggle-row">
       <div class="toggle-label-group">
         <span class="toggle-label">Hide Shorts</span>
@@ -166,6 +317,59 @@
       </label>
     </div>
 
+    <!-- Focus Time Control -->
+    <div class="focus-section">
+
+      <!-- IDLE view: shown when focus is not active -->
+      <div id="focus-idle">
+        <div class="section-header">
+          <span class="section-label">Focus Time</span>
+        </div>
+        <p class="section-sublabel">Block all video content for a set time</p>
+
+        <div class="duration-btns">
+          <button class="duration-btn selected" data-duration="15m">15m</button>
+          <button class="duration-btn" data-duration="30m">30m</button>
+          <button class="duration-btn" data-duration="1h">1h</button>
+          <button class="duration-btn" data-duration="custom">Custom</button>
+        </div>
+
+        <div class="custom-input-row" id="custom-input-row">
+          <label for="custom-min-input">Duration:</label>
+          <input
+            type="number"
+            id="custom-min-input"
+            min="1"
+            max="480"
+            value="15"
+            placeholder="min"
+          />
+          <span style="font-size:12px;color:#aaa;">min</span>
+        </div>
+
+        <button class="focus-btn focus-btn-start" id="focus-start-btn">
+          START FOCUS
+        </button>
+      </div>
+
+      <!-- ACTIVE view: shown while the timer is running -->
+      <div id="focus-active" class="focus-active-view" style="display:none;">
+        <div class="section-header" style="justify-content:center;margin-bottom:10px;">
+          <span class="section-label">Focus Time</span>
+          <span class="focus-badge">ACTIVE</span>
+        </div>
+
+        <div class="focus-countdown" id="focus-countdown">00:00</div>
+        <p class="focus-remaining-label">remaining</p>
+
+        <button class="focus-btn focus-btn-stop" id="focus-stop-btn">
+          STOP FOCUS
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
     <div class="footer">Changes apply instantly — no refresh needed</div>
 
     <script src="popup.js"></script>
