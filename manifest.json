@@ -3,7 +3,8 @@
   "name": "Sodium - Youtube Productivity",
   "version": "1.0.0",
   "description": "Hide YouTube Shorts from the homepage, sidebar, search results, and recommendations.",
-  "permissions": ["storage", "activeTab"],
+  "permissions": ["storage", "activeTab", "alarms"],
+  "background": { "service_worker": "background.js" },
   "host_permissions": ["https://www.youtube.com/*"],
   "action": {
     "default_popup": "popup.html",
