@@ -1,11 +1,13 @@
 const FEATURE_RULES = {
   shortsHidden: "ysh-active",
   focusActive:  "ysf-active",
+  zenMode:      "yzm-active",
 };
 
 const DEFAULT_SETTINGS = {
   shortsHidden: true,
   focusEndTime: 0,
+  zenMode: false,
 };
 
 let currentSettings = { ...DEFAULT_SETTINGS };
