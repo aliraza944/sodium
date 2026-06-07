@@ -1,10 +1,13 @@
 const DEFAULT_SETTINGS = {
   shortsHidden: true,
   focusEndTime: 0,
+  zenMode: false,
 };
 
 const shortsToggle  = document.getElementById("shorts-toggle");
 const shortsStatus  = document.getElementById("status-text");
+const zenToggle     = document.getElementById("zen-toggle");
+const zenStatus     = document.getElementById("zen-status-text");
 const focusIdleView    = document.getElementById("focus-idle");
 const focusActiveView  = document.getElementById("focus-active");
 const focusCountdownEl = document.getElementById("focus-countdown");
@@ -22,6 +25,13 @@ function updateShortsStatus(isHidden) {
   isHidden
     ? shortsStatus.classList.add("active")
     : shortsStatus.classList.remove("active");
+}
+
+function updateZenStatus(isOn) {
+  zenStatus.textContent = isOn ? "Thumbnails hidden" : "Thumbnails visible";
+  isOn
+    ? zenStatus.classList.add("active")
+    : zenStatus.classList.remove("active");
 }
 
 function notifyTab(settings) {
@@ -79,6 +89,9 @@ chrome.storage.sync.get("settings", (data) => {
   shortsToggle.checked = settings.shortsHidden;
   updateShortsStatus(settings.shortsHidden);
 
+  zenToggle.checked = settings.zenMode ?? false;
+  updateZenStatus(settings.zenMode ?? false);
+
   const focusEndTime = settings.focusEndTime ?? 0;
   if (focusEndTime > 0 && Date.now() < focusEndTime) {
     renderActiveState(focusEndTime);
@@ -93,6 +106,16 @@ shortsToggle.addEventListener("change", () => {
     settings.shortsHidden = shortsToggle.checked;
     chrome.storage.sync.set({ settings });
     updateShortsStatus(settings.shortsHidden);
+    notifyTab(settings);
+  });
+});
+
+zenToggle.addEventListener("change", () => {
+  chrome.storage.sync.get("settings", (data) => {
+    const settings = { ...(data.settings ?? DEFAULT_SETTINGS) };
+    settings.zenMode = zenToggle.checked;
+    chrome.storage.sync.set({ settings });
+    updateZenStatus(settings.zenMode);
     notifyTab(settings);
   });
 });

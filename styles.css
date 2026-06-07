@@ -51,3 +51,9 @@
 .ysf-active ytd-browse[page-subtype="trending"] ytd-item-section-renderer {
   display: none !important;
 }
+
+.yzm-active yt-thumbnail-view-model,
+.yzm-active #video-preview {
+  display: none !important;
+}
+
