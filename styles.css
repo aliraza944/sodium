@@ -3,11 +3,20 @@
   display: none !important;
 }
 
-.ysh-active ytd-guide-entry-renderer:has(a[title="Shorts"]) {
+/* Shorts shelves built from the newer lockup view models (home and search, late 2026). */
+.ysh-active ytd-rich-section-renderer:has(ytm-shorts-lockup-view-model),
+.ysh-active ytd-rich-shelf-renderer:has(ytm-shorts-lockup-view-model),
+.ysh-active grid-shelf-view-model:has(ytm-shorts-lockup-view-model) {
   display: none !important;
 }
 
-.ysh-active ytd-mini-guide-entry-renderer:has(a[href="/shorts"]) {
+.ysh-active ytd-guide-entry-renderer:has(a[title="Shorts"]),
+.ysh-active ytd-guide-entry-renderer:has(a[href^="/shorts"]) {
+  display: none !important;
+}
+
+.ysh-active ytd-mini-guide-entry-renderer:has(a[href^="/shorts"]),
+.ysh-active ytd-mini-guide-entry-renderer:has(a[title="Shorts"]) {
   display: none !important;
 }
 
